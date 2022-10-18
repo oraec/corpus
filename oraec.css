@@ -1,0 +1,47 @@
+/* use Charis SIL - Regular in .woff2 format */
+@font-face {
+  font-family: CharisSILW;
+  src: url(CharisSIL-Regular.woff2);
+}
+/* use Charis SIL - Italic in .woff2 format */
+@font-face {
+  font-family: CharisSILW;
+  font-style: italic;
+  src: url(CharisSIL-Italic.woff2);
+}
+/* use Charis SIL - Bold in .woff2 format */
+@font-face {
+	font-family: CharisSILW;
+	font-weight: bold;
+	src: url(CharisSIL-Bold.woff2);
+}
+/* use Charis SIL - Bold Italic in .woff2 format */
+@font-face {
+	font-family: CharisSILW;
+	font-weight: bold;
+	font-style: italic;
+	src: url(CharisSIL-BoldItalic.woff2);
+}
+body {
+	font-family: CharisSILW, EgyptianHiero;
+	background: #FBFAFB;
+}
+a {
+	text-decoration: none
+}
+h1 {
+	background-color: #dfebe6;
+	color: green;
+	border-bottom: 10em;
+	padding: .2em;
+}
+h2 {
+	border-bottom-style: dashed;
+	border-top-style: dashed;
+}
+p {
+	margin: .1em;
+}
+.author, .source, .license {
+	font-size: .8em;
+}
