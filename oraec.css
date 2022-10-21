@@ -22,6 +22,10 @@
 	font-style: italic;
 	src: url(CharisSIL-BoldItalic.woff2);
 }
+@font-face {
+	font-family: EgyptianHiero;
+	src: url(EgyptianHiero4.03.woff2) format('woff2');
+}
 body {
 	font-family: CharisSILW, EgyptianHiero;
 	background: #FBFAFB;
@@ -44,4 +48,10 @@ p {
 }
 .author, .source, .license {
 	font-size: .8em;
+}
+th {
+	font-size: smaller;
+}
+.large {
+	font-size: x-large;
 }
