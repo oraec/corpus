@@ -43,6 +43,9 @@ h2 {
 	border-bottom-style: dashed;
 	border-top-style: dashed;
 }
+h3 {
+	border-top-style: dotted;
+}
 p {
 	margin: .1em;
 }
