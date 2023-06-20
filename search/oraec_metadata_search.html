@@ -1,0 +1,159 @@
+<html>
+<head>
+ <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+ <meta name="viewport" content="width=device-width" />
+ <title>ORAEC metadata search</title>
+<link rel="stylesheet" type="text/css" href="../oraec.css" />
+<link rel="shortcut icon" href="../icon/oraec.ico" />
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script>
+function intersection(first, second)
+{
+    var s = new Set(second);
+    return first.filter(item => s.has(item));
+};
+
+  $(document).ready(function() {
+   $("#submit").click(function() {
+    var input1 = $("#input1").val();
+    var input2 = $("#input2").val();
+    var input3 = $("#input3").val();
+
+    $.when(
+     $.getJSON("metadata_search_objecttype.json"),
+     $.getJSON("metadata_search_date.json"),
+     $.getJSON("metadata_search_origplace.json")
+    ).done(function(data1, data2, data3) {
+     var result = [];
+
+    let tempResult1 = [];
+    let tempResult2 = [];
+    let tempResult3 = [];
+    let boole1 = true;
+    let boole2 = true;
+    let boole3 = true;
+
+    if (input1.length > 0) {
+        if (data1[0][input1]) {
+            tempResult1 = data1[0][input1];
+        }
+    } else {
+      boole1 = false;
+    }
+
+    if (input2.length > 0) {
+        if (data2[0][input2]) {
+            tempResult2 = data2[0][input2];
+        }
+    } else {
+      boole2 = false;
+    }
+
+    if (input3.length > 0) {
+        if (data3[0][input3]) {
+            tempResult3 = data3[0][input3];
+        }
+    } else {
+      boole3 = false;
+    }
+
+    if (boole1 == false) {
+      if (boole2 == false) {
+        if (boole3 == false) {
+          result = [];
+        } else {
+          result = tempResult3;
+        }
+      } else {
+        if (boole3 == false) {
+          result = tempResult2;
+        } else {
+          result = intersection(tempResult2,tempResult3)
+        }
+      }
+    } else {
+      if (boole2 == false) {
+        if (boole3 == false) {
+          result = tempResult1;
+        } else {
+          result = intersection(tempResult1,tempResult3)
+        }
+      } else {
+        if (boole3 == false) {
+          result = intersection(tempResult1,tempResult2)
+        } else {
+          let tempResult = intersection(tempResult1,tempResult2);
+          result = intersection(tempResult,tempResult3);
+        }
+      }
+    }
+
+     if (result.length > 0) {
+        var oraeclink = "<a href=\"https://oraec.github.io/corpus/";
+        sequence = [];
+        for (i in result) {
+            check = oraeclink.concat(result[i], ".html\">", result[i], "</a>")
+            sequence.push(check)
+        }
+        document.getElementById("results").innerHTML = sequence.join(", ");
+     } else {
+        document.getElementById("results").innerHTML = "Sorry! No results!";
+     }
+    });
+   });
+
+   $("#input1").autocomplete({
+    source: function(request, response) {
+     $.getJSON("metadata_search_objecttype.json", function(data) {
+      var filteredData = $.grep(Object.keys(data), function(element) {
+       return element.indexOf(request.term) !== -1;
+      });
+
+      response(filteredData);
+     });
+    },
+    minLength: 1
+   });
+
+   $("#input2").autocomplete({
+    source: function(request, response) {
+     $.getJSON("metadata_search_date.json", function(data) {
+      var filteredData = $.grep(Object.keys(data), function(element) {
+       return element.indexOf(request.term) !== -1;
+      });
+
+      response(filteredData);
+     });
+    },
+    minLength: 1
+   });
+
+   $("#input3").autocomplete({
+    source: function(request, response) {
+     $.getJSON("metadata_search_origplace.json", function(data) {
+      var filteredData = $.grep(Object.keys(data), function(element) {
+       return element.indexOf(request.term) !== -1;
+      });
+
+      response(filteredData);
+     });
+    },
+    minLength: 1
+   });
+  });
+ </script>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+ <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+</head>
+<body>
+    <h1>ORAEC metadata search</h1>
+ <input type="text" id="input1" placeholder="Enter an objecttype">
+ <input type="text" id="input2" placeholder="Enter a date">
+ <input type="text" id="input3" placeholder="Enter a findspot">
+ <button id="submit">Search!</button>
+ <p class="source">ORAEC's proof of concept of a metadata search</p>
+ <h2>Results</h2>
+ <div id="results"></div>
+ <p class="author">Data Authors: Burkhard Backes, Susanne Beck, Marc Brose, Adelheid Burkhardt, Roberto A. Díaz Hernández, Peter Dils, Roland Enmarch, Frank Feder, Heinz Felber, Silke Grallert, Stefan Grunert, Ingelore Hafemann, Anne Herzberg, John M. Iskander, Ines Köhler, Renata Landgrafova, Verena Lepper, Lutz Popko, Alexander Schütze, Stephan Seidlmayer, Gunnar Sperveslage, Susanne Töpfer, Doris Topmann, Altägyptisches Wörterbuch<br />Source: <a href="https://oraec.github.io/corpus/">ORAEC</a> (cc-by-sa-4.0)<br />Created by ORAEC</p>
+</body>
+</html>

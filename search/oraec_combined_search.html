@@ -1,0 +1,280 @@
+<html>
+<head>
+ <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+ <meta name="viewport" content="width=device-width" />
+ <title>ORAEC combined search</title>
+<link rel="stylesheet" type="text/css" href="../oraec.css" />
+<link rel="shortcut icon" href="../icon/oraec.ico" />
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script>
+function intersection(first, second)
+{
+    var s = new Set(second);
+    return first.filter(item => s.has(item));
+};
+
+  $(document).ready(function() {
+   $("#submit").click(function() {
+    var input1 = $("#input1").val();
+    var input2 = $("#input2").val();
+    var input3 = $("#input3").val();
+    var input4 = $("#input4").val();
+    var input5 = $("#input5").val();
+    var input6 = $("#input6").val();
+
+    $.when(
+     $.getJSON("metadata_search_objecttype.json"),
+     $.getJSON("metadata_search_date.json"),
+     $.getJSON("metadata_search_origplace.json"),
+     $.getJSON("some_parameter_lemma_form.json"),
+     $.getJSON("some_parameter_inflection.json"),
+     $.getJSON("some_parameter_verbalClass.json")
+    ).done(function(data1, data2, data3, data4, data5, data6) {
+     var result = [];
+
+    let tempResult1 = [];
+    let tempResult2 = [];
+    let tempResult3 = [];
+    let tempResult4 = [];
+    let tempResult5 = [];
+    let tempResult6 = [];
+    let boole1 = true;
+    let boole2 = true;
+    let boole3 = true;
+    let boole4 = true;
+    let boole5 = true;
+    let boole6 = true;
+    let parameter = [];
+    let metadata = [];
+
+    if (input1.length > 0) {
+        if (data1[0][input1]) {
+            tempResult1 = data1[0][input1];
+        }
+    } else {
+      boole1 = false;
+    }
+
+    if (input2.length > 0) {
+        if (data2[0][input2]) {
+            tempResult2 = data2[0][input2];
+        }
+    } else {
+      boole2 = false;
+    }
+
+    if (input3.length > 0) {
+        if (data3[0][input3]) {
+            tempResult3 = data3[0][input3];
+        }
+    } else {
+      boole3 = false;
+    }
+
+    if (boole1 == false) {
+      if (boole2 == false) {
+        if (boole3 == false) {
+          metadata = [];
+        } else {
+          metadata = tempResult3;
+        }
+      } else {
+        if (boole3 == false) {
+          metadata = tempResult2;
+        } else {
+          metadata = intersection(tempResult2,tempResult3)
+        }
+      }
+    } else {
+      if (boole2 == false) {
+        if (boole3 == false) {
+          metadata = tempResult1;
+        } else {
+          metadata = intersection(tempResult1,tempResult3)
+        }
+      } else {
+        if (boole3 == false) {
+          metadata = intersection(tempResult1,tempResult2)
+        } else {
+          let tempResult = intersection(tempResult1,tempResult2);
+          metadata = intersection(tempResult,tempResult3);
+        }
+      }
+    }
+
+    if (input4.length > 0) {
+        if (data4[0][input4]) {
+            tempResult4 = data4[0][input4];
+        }
+    } else {
+      boole4 = false;
+    }
+
+    if (input5.length > 0) {
+        if (data5[0][input5]) {
+            tempResult5 = data5[0][input5];
+        }
+    } else {
+      boole5 = false;
+    }
+
+    if (input6.length > 0) {
+        if (data6[0][input6]) {
+            tempResult6 = data6[0][input6];
+        }
+    } else {
+      boole6 = false;
+    }
+
+    if (boole4 == false) {
+      if (boole5 == false) {
+        if (boole6 == false) {
+          parameter = [];
+        } else {
+          parameter = tempResult6;
+        }
+      } else {
+        if (boole6 == false) {
+          parameter = tempResult5;
+        } else {
+          parameter = intersection(tempResult5,tempResult6)
+        }
+      }
+    } else {
+      if (boole5 == false) {
+        if (boole6 == false) {
+          parameter = tempResult4;
+        } else {
+          parameter = intersection(tempResult4,tempResult6)
+        }
+      } else {
+        if (boole6 == false) {
+          parameter = intersection(tempResult4,tempResult5)
+        } else {
+          let tempparameter = intersection(tempResult4,tempResult5);
+          parameter = intersection(tempparameter,tempResult6);
+        }
+      }
+    }
+
+    for (j in parameter) {
+      check = parameter[j].split("-")[0]
+      if (metadata.includes(check)) {
+        result.push(parameter[j])
+      }
+    }
+
+     if (result.length > 0) {
+        var oraeclink = "<a href=\"https://oraec.github.io/corpus/";
+        sequence = [];
+        for (i in result) {
+            check = oraeclink.concat(result[i].split("-")[0], "-", result[i].split("-")[1], ".html\">", result[i], "</a>")
+            sequence.push(check)
+        }
+        document.getElementById("results").innerHTML = sequence.join(", ");
+     } else {
+        document.getElementById("results").innerHTML = "Sorry! No results!";
+     }
+    });
+   });
+
+   $("#input1").autocomplete({
+    source: function(request, response) {
+     $.getJSON("metadata_search_objecttype.json", function(data) {
+      var filteredData = $.grep(Object.keys(data), function(element) {
+       return element.indexOf(request.term) !== -1;
+      });
+
+      response(filteredData);
+     });
+    },
+    minLength: 1
+   });
+
+   $("#input2").autocomplete({
+    source: function(request, response) {
+     $.getJSON("metadata_search_date.json", function(data) {
+      var filteredData = $.grep(Object.keys(data), function(element) {
+       return element.indexOf(request.term) !== -1;
+      });
+
+      response(filteredData);
+     });
+    },
+    minLength: 1
+   });
+
+   $("#input3").autocomplete({
+    source: function(request, response) {
+     $.getJSON("metadata_search_origplace.json", function(data) {
+      var filteredData = $.grep(Object.keys(data), function(element) {
+       return element.indexOf(request.term) !== -1;
+      });
+
+      response(filteredData);
+     });
+    },
+    minLength: 1
+   });
+
+   $("#input4").autocomplete({
+    source: function(request, response) {
+     $.getJSON("some_parameter_lemma_form.json", function(data) {
+      var filteredData = $.grep(Object.keys(data), function(element) {
+       return element.indexOf(request.term) !== -1;
+      });
+
+      response(filteredData);
+     });
+    },
+    minLength: 1
+   });
+
+   $("#input5").autocomplete({
+    source: function(request, response) {
+     $.getJSON("some_parameter_inflection.json", function(data) {
+      var filteredData = $.grep(Object.keys(data), function(element) {
+       return element.indexOf(request.term) !== -1;
+      });
+
+      response(filteredData);
+     });
+    },
+    minLength: 1
+   });
+
+   $("#input6").autocomplete({
+    source: function(request, response) {
+     $.getJSON("some_parameter_verbalClass.json", function(data) {
+      var filteredData = $.grep(Object.keys(data), function(element) {
+       return element.indexOf(request.term) !== -1;
+      });
+
+      response(filteredData);
+     });
+    },
+    minLength: 1
+   });
+  });
+ </script>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+ <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+</head>
+<body>
+    <h1>ORAEC combined search</h1>
+    <h3>Metadata</h3>
+ <input type="text" id="input1" placeholder="Enter an objecttype">
+ <input type="text" id="input2" placeholder="Enter a date">
+ <input type="text" id="input3" placeholder="Enter a findspot">
+    <h3>Parameter</h3>
+ <input type="text" id="input4" placeholder="Enter a word">
+ <input type="text" id="input5" placeholder="Enter an inflection">
+ <input type="text" id="input6" placeholder="Enter a verbal class">
+ <button id="submit">Search!</button>
+ <p class="source">ORAEC's proof of concept of a combined search</p>
+ <h2>Results</h2>
+ <div id="results"></div>
+ <p class="author">Data Authors: Burkhard Backes, Susanne Beck, Marc Brose, Adelheid Burkhardt, Roberto A. Díaz Hernández, Peter Dils, Roland Enmarch, Frank Feder, Heinz Felber, Silke Grallert, Stefan Grunert, Ingelore Hafemann, Anne Herzberg, John M. Iskander, Ines Köhler, Renata Landgrafova, Verena Lepper, Lutz Popko, Alexander Schütze, Stephan Seidlmayer, Gunnar Sperveslage, Susanne Töpfer, Doris Topmann, Altägyptisches Wörterbuch<br />Source: <a href="https://oraec.github.io/corpus/">ORAEC</a> (cc-by-sa-4.0)<br />Created by ORAEC</p>
+
+</body>
+</html>
