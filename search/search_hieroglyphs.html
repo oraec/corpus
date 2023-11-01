@@ -2095,7 +2095,7 @@ searchInput.addEventListener("keyup", function() {
       	sequence = []
       	for (i in results) {
       		g = results[i]
-      		check = statbslink.concat(responsestatbs[g], "\">", responsestatbs[g], "</a>")
+      		check = statbslink.concat(responsestatbs[g], "\">TM ", responsestatbs[g], "</a>")
       		sequence.push(check)
       	}
       	document.getElementById("statbs").innerHTML = sequence.join(", ");
