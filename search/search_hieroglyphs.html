@@ -2031,7 +2031,7 @@ searchInput.addEventListener("keyup", function() {
 	}
 	if (mdc == true) {
 		let b = input.replaceAll('-',',').replaceAll('*',',').replaceAll(':',',').replaceAll(' ',',').replaceAll('(','').replaceAll(')','').replaceAll('&',',').replaceAll('\n',',').replaceAll('!','').replaceAll(hash,'').replaceAll('#b','Ba14').replaceAll('#e','Ba14a').replaceAll(backslash,'').replaceAll('#',',').replaceAll(',','-')
-		check = ramseslink.concat(input, "\">direct search in Ramsès</a>");
+		check = ramseslink.concat(input, "\" target=\"_blank\">direct search in Ramsès</a>");
 		document.getElementById("ramses").innerHTML = check;
 	} else {
 		document.getElementById("ramses").innerHTML = "Sorry! The link needs MdC.";
@@ -2052,7 +2052,7 @@ searchInput.addEventListener("keyup", function() {
 			for (i in results) {
 				g = results[i]
 				let number = Number(i) + 1 ;
-				check = link.concat(g, "\">result #", number, "</a>")
+				check = link.concat(g, "\" target=\"_blank\">result #", number, "</a>")
 				sequence.push(check)
 			}
 			document.getElementById("tla").innerHTML = sequence.join(", ");
@@ -2075,7 +2075,7 @@ searchInput.addEventListener("keyup", function() {
       	sequence = []
       	for (i in results) {
       		g = results[i]
-      		check = wikisourcelink.concat(responsewikisource[g], "\">", responsewikisource[g], "</a>")
+      		check = wikisourcelink.concat(responsewikisource[g], "\" target=\"_blank\">", responsewikisource[g], "</a>")
       		sequence.push(check)
       	}
       	document.getElementById("wikisource").innerHTML = sequence.join(", ");
@@ -2097,7 +2097,7 @@ searchInput.addEventListener("keyup", function() {
       	sequence = []
       	for (i in results) {
       		g = results[i]
-      		check = statbslink.concat(responsestatbs[g], "\">TM ", responsestatbs[g], "</a>")
+      		check = statbslink.concat(responsestatbs[g], "\" target=\"_blank\">TM ", responsestatbs[g], "</a>")
       		sequence.push(check)
       	}
       	document.getElementById("statbs").innerHTML = sequence.join(", ");
@@ -2126,7 +2126,7 @@ searchInput.addEventListener("keyup", function() {
 			for (i in results) {
 				g = results[i]
 				let number = Number(i) + 1 ;
-				check = pnmlink.concat(g, "\">result #", number, "</a>")
+				check = pnmlink.concat(g, "\" target=\"_blank\">result #", number, "</a>")
 				sequence.push(check)
 			}
 			document.getElementById("pnm").innerHTML = sequence.join(", ");
@@ -2156,7 +2156,7 @@ searchInput.addEventListener("keyup", function() {
 			for (i in results) {
 				g = results[i]
 				let number = Number(i) + 1 ;
-				check = prosopographialink.concat(g, "\">result #", number, "</a>")
+				check = prosopographialink.concat(g, "\" target=\"_blank\">result #", number, "</a>")
 				sequence.push(check)
 			}
 			document.getElementById("prosopographia").innerHTML = sequence.join(", ");
@@ -2179,7 +2179,7 @@ searchInput.addEventListener("keyup", function() {
       	sequence = []
       	for (i in results) {
       		g = results[i]
-      		check = jseshlink.concat(responsejsesh[g], "\">", responsejsesh[g], "</a>")
+      		check = jseshlink.concat(responsejsesh[g], "\" target=\"_blank\">", responsejsesh[g], "</a>")
       		sequence.push(check)
       	}
       	document.getElementById("jsesh").innerHTML = sequence.join(", ");
@@ -2200,7 +2200,7 @@ searchInput.addEventListener("keyup", function() {
       	sequence = [];
       	for (i in interestingoraec) {
       		g = interestingoraec[i]
-      		check = oraeclink.concat(g, ".html\">", g, "</a>")
+      		check = oraeclink.concat(g, ".html\" target=\"_blank\">", g, "</a>")
       		sequence.push(check)
       	}
       	document.getElementById("oraec").innerHTML = sequence.join(", ");

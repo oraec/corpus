@@ -2025,7 +2025,7 @@ searchInput.addEventListener("keyup", function() {
 	}
 	if (mdc == true) {
 		let b = input.replaceAll('-',',').replaceAll('*',',').replaceAll(':',',').replaceAll(' ',',').replaceAll('(','').replaceAll(')','').replaceAll('&',',').replaceAll('\n',',').replaceAll('!','').replaceAll(hash,'').replaceAll('#b','Ba14').replaceAll('#e','Ba14a').replaceAll(backslash,'').replaceAll('#',',').replaceAll(',','-')
-		check = ramseslink.concat(input, "\">direct search in Ramsès</a>");
+		check = ramseslink.concat(input, "\" target=\"_blank\">direct search in Ramsès</a>");
 		document.getElementById("ramses").innerHTML = check;
 	} else {
 		document.getElementById("ramses").innerHTML = "Sorry! The link needs MdC.";
@@ -2041,7 +2041,7 @@ searchInput.addEventListener("keyup", function() {
 			for (i in results) {
 				g = results[i]
 				let number = Number(i) + 1 ;
-				check = link.concat(g, "\">result #", number, "</a>")
+				check = link.concat(g, "\" target=\"_blank\">result #", number, "</a>")
 				sequence.push(check)
 			}
 			document.getElementById("tla").innerHTML = sequence.join(", ");
@@ -2066,7 +2066,7 @@ searchInput.addEventListener("keyup", function() {
 			for (i in results) {
 				g = results[i]
 				let number = Number(i) + 1 ;
-				check = pnmlink.concat(g, "\">result #", number, "</a>")
+				check = pnmlink.concat(g, "\" target=\"_blank\">result #", number, "</a>")
 				sequence.push(check)
 			}
 			document.getElementById("pnm").innerHTML = sequence.join(", ");
@@ -2091,7 +2091,7 @@ searchInput.addEventListener("keyup", function() {
 			for (i in results) {
 				g = results[i]
 				let number = Number(i) + 1 ;
-				check = prosopographialink.concat(g, "\">result #", number, "</a>")
+				check = prosopographialink.concat(g, "\" target=\"_blank\">result #", number, "</a>")
 				sequence.push(check)
 			}
 			document.getElementById("prosopographia").innerHTML = sequence.join(", ");
@@ -2109,7 +2109,7 @@ searchInput.addEventListener("keyup", function() {
     if (xhr2.readyState === 4 && xhr2.status === 200) {
       var response2 = JSON.parse(xhr2.responseText);
       if (response2.includes(searchTerm)) {
-      	check = oraeclink.concat(searchTerm, ".html\">", searchTerm, "</a>")
+      	check = oraeclink.concat(searchTerm, ".html\" target=\"_blank\">", searchTerm, "</a>")
       	document.getElementById("oraec").innerHTML = check;
       } else {
       	document.getElementById("oraec").innerHTML = "Sorry! No results!";
