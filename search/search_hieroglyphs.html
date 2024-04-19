@@ -2203,7 +2203,7 @@ searchInput.addEventListener("keyup", function() {
       	sequence = [];
       	for (i in interestingoraec) {
       		g = interestingoraec[i]
-      		check = osirislink.concat(" target=\"_blank\">", g, "</a>")
+      		check = osirislink.concat("\" target=\"_blank\">", g, "</a>")
       		sequence.push(check)
       	}
       	document.getElementById("osiris").innerHTML = sequence.join(", ");

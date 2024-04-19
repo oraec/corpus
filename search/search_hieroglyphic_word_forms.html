@@ -2112,7 +2112,7 @@ searchInput.addEventListener("keyup", function() {
     if (xhrosiris.readyState === 4 && xhrosiris.status === 200) {
       var response = JSON.parse(xhrosiris.responseText);
       if (response.includes(searchTerm)) {
-      	check = osirislink.concat(" target=\"_blank\">", searchTerm, "</a>")
+      	check = osirislink.concat("\" target=\"_blank\">", searchTerm, "</a>")
       	document.getElementById("osiris").innerHTML = check;
       } else {
       	document.getElementById("osiris").innerHTML = "Sorry! No results!";
