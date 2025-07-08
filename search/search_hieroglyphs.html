@@ -2010,7 +2010,7 @@ let dict_keys = Object.keys(dict)
 searchInput.addEventListener("keyup", function() {
   var input = searchInput.value;
   var code = input.charCodeAt(0);
-  let link = "<a href=\"https://thesaurus-linguae-aegyptiae.de/sentence/"
+  let link = "<a href=\"https://oraec.github.io/tla-spelling-overview/"
   let ramseslink = "<a href=\"http://ramses.ulg.ac.be/search/mdc?request="
   let wikisourcelink = "<a href=\"https://raw.githubusercontent.com/oraec/formerly-mdc-now_unicode/main/wikisource/"
   let jseshlink = "<a href=\"https://raw.githubusercontent.com/oraec/formerly-mdc-now_unicode/main/jsesh/"
@@ -2063,7 +2063,7 @@ searchInput.addEventListener("keyup", function() {
 			for (i in results) {
 				g = results[i]
 				let number = Number(i) + 1 ;
-				check = link.concat(g, "\" target=\"_blank\">result #", number, "</a>")
+				check = link.concat(g, ".html\" target=\"_blank\">Lemma ID ", g, "</a>")
 				sequence.push(check)
 			}
 			document.getElementById("tla").innerHTML = sequence.join(", ");
